@@ -1,7 +1,9 @@
 const BodyTitle = () => {
   return (
     <div className="">
-      <h2 className="text-2xl ">SIGEO - Dados</h2>
+      <h2 className="text-2xl ">
+        <span className="font-extrabold">SIGEO</span> - Dados
+      </h2>
     </div>
   );
 };
