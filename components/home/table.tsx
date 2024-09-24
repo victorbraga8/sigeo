@@ -19,7 +19,8 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 
-import CloudUpload, { UploadCloud } from "lucide-react";
+import CloudUpload, { Trash2, UploadCloud } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 const invoices = [
   {
@@ -87,6 +88,17 @@ export function TableData() {
 
   return (
     <div className="overflow-auto w-full">
+      <div className="mb-8 w-4/12 flex flex-col ml-1" id="search">
+        <label htmlFor="search" className="text-start">
+          Pesquisa de Dados
+        </label>
+        <div className="flex justify-between gap-2">
+          <Input placeholder="Digite a sua pesquisa" />
+          <Button className="h-8 w-8 relative bg-amber-600 hover:bg-amber-800">
+            <Trash2 size={20} className="absolute inset-0 m-auto" />
+          </Button>
+        </div>
+      </div>
       <Table
         className="min-w-full border-separate table-fixed h-[400px] overflow-hidden pb-8"
         style={{ borderSpacing: 0 }}
