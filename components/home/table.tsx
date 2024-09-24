@@ -24,46 +24,40 @@ import { Input } from "@/components/ui/input";
 import Loading from "../loading/loading";
 
 export function TableData() {
-  const [info, setInfo] = useState<any[]>([]); // Estado para armazenar os dados originais
-  const [loading, setLoading] = useState(true); // Estado para gerenciar o loading
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para armazenar o termo de pesquisa
+  const [info, setInfo] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // useEffect para buscar os dados uma única vez
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // Inicia o carregamento
+      setLoading(true);
       try {
         const response = await axios.get("http://localhost:3003/features");
-        setInfo(response.data); // Armazena os dados originais
+        setInfo(response.data);
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false); // Finaliza o carregamento
+        setLoading(false);
       }
     };
-    fetchData(); // Chamada no momento da renderização
-  }, []); // Somente na montagem do componente
+    fetchData();
+  }, []);
 
-  // Função para enviar dados para a nuvem (memorizada com useCallback)
   const handleSendToCloud = useCallback((item: any) => {
     console.log("Enviando para a nuvem:", item);
   }, []);
 
-  // Função para lidar com a pesquisa (memorizada com useCallback)
   const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value.toLowerCase()); // Atualiza o valor do termo de pesquisa
+    setSearchTerm(e.target.value.toLowerCase());
   }, []);
 
-  // Função para limpar a pesquisa (memorizada com useCallback)
   const handleClearSearch = useCallback(() => {
-    setSearchTerm(""); // Limpa o termo de pesquisa sem fazer uma nova requisição
+    setSearchTerm("");
   }, []);
 
-  // useMemo para calcular os dados filtrados dinamicamente com base no termo de pesquisa
   const filteredResults = useMemo(() => {
-    if (!searchTerm) return info; // Se o termo de pesquisa estiver vazio, retorna os dados originais
+    if (!searchTerm) return info;
 
-    // Filtra os dados com base no termo de pesquisa
     return info.filter(
       (item: any) =>
         item.properties.tx_nome?.toLowerCase().includes(searchTerm) ||
@@ -75,10 +69,8 @@ export function TableData() {
 
   return (
     <div className="relative">
-      {/* Loader com fade no fundo */}
       {loading && <Loading />}
 
-      {/* Conteúdo da Tabela - Mostra apenas quando o carregamento terminar */}
       {!loading && (
         <div className="overflow-auto w-full">
           <div className="mb-8 w-4/12 flex flex-col ml-1" id="search">
