@@ -16,7 +16,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
 
 import { Trash2, UploadCloud } from "lucide-react";
@@ -24,46 +24,54 @@ import { Input } from "@/components/ui/input";
 import Loading from "../loading/loading";
 
 export function TableData() {
-  const [filteredData, setFilteredData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [info, setInfo] = useState<any[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [info, setInfo] = useState<any[]>([]); // Estado para armazenar os dados originais
+  const [loading, setLoading] = useState(true); // Estado para gerenciar o loading
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para armazenar o termo de pesquisa
+
+  // useEffect para buscar os dados uma única vez
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true); // Inicia o carregamento
       try {
         const response = await axios.get("http://localhost:3003/features");
-        setInfo(response.data);
-        setFilteredData(response.data);
+        setInfo(response.data); // Armazena os dados originais
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false); // Finaliza o carregamento
       }
     };
-    fetchData();
+    fetchData(); // Chamada no momento da renderização
+  }, []); // Somente na montagem do componente
+
+  // Função para enviar dados para a nuvem (memorizada com useCallback)
+  const handleSendToCloud = useCallback((item: any) => {
+    console.log("Enviando para a nuvem:", item);
   }, []);
 
-  const handleSendToCloud = (item: any) => {
-    console.log("Enviando para a nuvem:", item);
-  };
+  // Função para lidar com a pesquisa (memorizada com useCallback)
+  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value.toLowerCase()); // Atualiza o valor do termo de pesquisa
+  }, []);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.toLowerCase();
-    setSearchTerm(value);
+  // Função para limpar a pesquisa (memorizada com useCallback)
+  const handleClearSearch = useCallback(() => {
+    setSearchTerm(""); // Limpa o termo de pesquisa sem fazer uma nova requisição
+  }, []);
 
-    const filtered = filteredData.filter(
+  // useMemo para calcular os dados filtrados dinamicamente com base no termo de pesquisa
+  const filteredResults = useMemo(() => {
+    if (!searchTerm) return info; // Se o termo de pesquisa estiver vazio, retorna os dados originais
+
+    // Filtra os dados com base no termo de pesquisa
+    return info.filter(
       (item: any) =>
-        item.properties.tx_nome?.toLowerCase().includes(value) ||
-        item.properties.tx_status?.toLowerCase().includes(value) ||
-        item.properties.tx_bairro?.toLowerCase().includes(value) ||
-        item.properties.tx_equipamentos?.toLowerCase().includes(value)
+        item.properties.tx_nome?.toLowerCase().includes(searchTerm) ||
+        item.properties.tx_status?.toLowerCase().includes(searchTerm) ||
+        item.properties.tx_bairro?.toLowerCase().includes(searchTerm) ||
+        item.properties.tx_equipamentos?.toLowerCase().includes(searchTerm)
     );
-
-    setFilteredData(filtered);
-  };
-
-  const handleClearSearch = () => {
-    setSearchTerm("");
-    setFilteredData(info);
-  };
+  }, [info, searchTerm]);
 
   return (
     <div className="relative">
@@ -117,8 +125,8 @@ export function TableData() {
             </TableHeader>
 
             <TableBody className="max-h-[40vh] w-screen overflow-y-scroll block">
-              {filteredData.length > 0 ? (
-                filteredData.map((item: any) => (
+              {filteredResults.length > 0 ? (
+                filteredResults.map((item: any) => (
                   <TableRow key={item.id} className="hover:bg-gray-100">
                     <TableCell className="p-2 font-medium border-b text-left w-[16%]">
                       {item.properties.tx_nome || "N/A"}
@@ -174,7 +182,7 @@ export function TableData() {
             <TableFooter>
               <TableRow>
                 <TableCell colSpan={4} className="p-2 font-bold">
-                  Total de Praças - {filteredData.length || 0}
+                  Total de Praças - {filteredResults.length || 0}
                 </TableCell>
               </TableRow>
             </TableFooter>
