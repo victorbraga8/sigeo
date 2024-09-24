@@ -93,13 +93,13 @@ export function TableData() {
       >
         <TableHeader className="bg-gray-200 sticky top-0 shadow-md">
           <TableRow>
-            <TableHead className="p-2 text-left border-b-2 border-gray-300 w-[16.7%]">
+            <TableHead className="p-2 text-left border-b-2 border-gray-300 w-[17.7%]">
               Praça
             </TableHead>
             <TableHead className="p-2 text-left border-b-2 border-gray-300 w-[5.5%]">
               Status
             </TableHead>
-            <TableHead className="p-2 text-left border-b-2 border-gray-300 w-[15%]">
+            <TableHead className="p-2 text-center pr-12 border-b-2 border-gray-300 w-[7%]">
               Bairro
             </TableHead>
             <TableHead className="p-2 text-left border-b-2 border-gray-300 w-[25%]">
@@ -116,10 +116,10 @@ export function TableData() {
               <TableCell className="p-2 font-medium border-b text-left w-[16%]">
                 {item.properties.tx_nome || "N/A"}
               </TableCell>
-              <TableCell className="p-2 border-b text-left w-[4.5%]">
+              <TableCell className="p-2 border-b text-center w-[4.5%]">
                 {item.properties.tx_status || "N/A"}
               </TableCell>
-              <TableCell className="p-2 border-b text-left w-[9%]">
+              <TableCell className="p-2 border-b text-center w-[9%]">
                 {item.properties.tx_bairro || "N/A"}
               </TableCell>
               <TableCell className="p-2 border-b text-left w-[25%] max-w-[250px] whitespace-normal break-words">
