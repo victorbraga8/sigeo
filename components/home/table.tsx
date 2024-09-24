@@ -105,9 +105,7 @@ export function TableData() {
             <TableHead className="p-2 text-left border-b-2 border-gray-300 w-[25%]">
               Equipamentos
             </TableHead>
-            <TableHead className="p-2 text-center border-b-2 border-gray-300 w-[10%]">
-              Enviar para Nuvem
-            </TableHead>
+            <TableHead className="p-2 text-center border-b-2 border-gray-300 w-[10%]"></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody className="max-h-[40vh] w-screen overflow-y-scroll block">
@@ -136,12 +134,21 @@ export function TableData() {
               </TableCell>
 
               <TableCell className="p-2 text-center border-b w-[10%]">
-                <Button
-                  className="bg-lime-500 hover:bg-lime-700 text-white font-bold py-4 px-4 rounded h-8 w-8 relative"
-                  onClick={() => handleSendToCloud(item)}
-                >
-                  <UploadCloud className="absolute inset-0 m-auto" />
-                </Button>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        className="bg-lime-500 hover:bg-lime-700 text-white font-bold py-4 px-4 rounded h-8 w-8 relative"
+                        onClick={() => handleSendToCloud(item)}
+                      >
+                        <UploadCloud className="absolute inset-0 m-auto" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Enviar para Nuvem</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </TableCell>
             </TableRow>
           ))}
