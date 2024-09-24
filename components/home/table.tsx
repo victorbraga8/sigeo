@@ -2,7 +2,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableFooter,
   TableHead,
@@ -18,6 +17,9 @@ import {
 } from "@/components/ui/tooltip";
 
 import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+
+import CloudUpload, { UploadCloud } from "lucide-react";
 
 const invoices = [
   {
@@ -81,17 +83,14 @@ export function TableData() {
 
   const handleSendToCloud = (item: any) => {
     console.log("Enviando para a nuvem:", item);
-    // Aqui você pode adicionar a lógica para enviar o item para a nuvem
   };
 
-  console.log(info);
   return (
     <div className="overflow-auto w-full">
       <Table
         className="min-w-full border-separate table-fixed h-[400px] overflow-hidden pb-8"
         style={{ borderSpacing: 0 }}
       >
-        {/* Cabeçalho da Tabela */}
         <TableHeader className="bg-gray-200 sticky top-0 shadow-md">
           <TableRow>
             <TableHead className="p-2 text-left border-b-2 border-gray-300 w-[16.7%]">
@@ -103,7 +102,6 @@ export function TableData() {
             <TableHead className="p-2 text-left border-b-2 border-gray-300 w-[15%]">
               Bairro
             </TableHead>
-            {/* Ajustando a largura da coluna Equipamentos para ser menor */}
             <TableHead className="p-2 text-left border-b-2 border-gray-300 w-[25%]">
               Equipamentos
             </TableHead>
@@ -112,8 +110,6 @@ export function TableData() {
             </TableHead>
           </TableRow>
         </TableHeader>
-
-        {/* Corpo da Tabela */}
         <TableBody className="max-h-[40vh] w-screen overflow-y-scroll block">
           {info?.map((item: any) => (
             <TableRow key={item.id} className="hover:bg-gray-100">
@@ -126,7 +122,6 @@ export function TableData() {
               <TableCell className="p-2 border-b text-left w-[9%]">
                 {item.properties.tx_bairro || "N/A"}
               </TableCell>
-              {/* Ajustando a largura da coluna Equipamentos */}
               <TableCell className="p-2 border-b text-left w-[25%] max-w-[250px] whitespace-normal break-words">
                 <TooltipProvider>
                   <Tooltip>
@@ -140,27 +135,21 @@ export function TableData() {
                 </TooltipProvider>
               </TableCell>
 
-              {/* Descomentar para incluir o botão novamente */}
               <TableCell className="p-2 text-center border-b w-[10%]">
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                <Button
+                  className="bg-lime-500 hover:bg-lime-700 text-white font-bold py-4 px-4 rounded h-8 w-8 relative"
                   onClick={() => handleSendToCloud(item)}
                 >
-                  Enviar
-                </button>
+                  <UploadCloud className="absolute inset-0 m-auto" />
+                </Button>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
-
-        {/* Rodapé da Tabela */}
         <TableFooter>
           <TableRow>
             <TableCell colSpan={4} className="p-2 font-bold">
-              Total de Praças
-            </TableCell>
-            <TableCell className="p-2 text-right font-bold">
-              {info?.length || 0}
+              Total de Praças - {info?.length || 0}
             </TableCell>
           </TableRow>
         </TableFooter>
