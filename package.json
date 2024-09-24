@@ -10,6 +10,7 @@
     "server": "npx json-server server/api/data.geojson --port 3003"
   },
   "dependencies": {
+    "@arcgis/core": "^4.30.9",
     "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@radix-ui/react-icons": "^1.3.0",
