@@ -94,7 +94,7 @@ export function TableData() {
         {/* Cabeçalho da Tabela */}
         <TableHeader className="bg-gray-200 sticky top-0 shadow-md">
           <TableRow>
-            <TableHead className="p-2 text-left border-b-2 border-gray-300 w-[18.5%]">
+            <TableHead className="p-2 text-left border-b-2 border-gray-300 w-[16.7%]">
               Praça
             </TableHead>
             <TableHead className="p-2 text-left border-b-2 border-gray-300 w-[5.5%]">
@@ -123,7 +123,7 @@ export function TableData() {
               <TableCell className="p-2 border-b text-left w-[4.5%]">
                 {item.properties.tx_status || "N/A"}
               </TableCell>
-              <TableCell className="p-2 border-b text-left w-[9.8%]">
+              <TableCell className="p-2 border-b text-left w-[9%]">
                 {item.properties.tx_bairro || "N/A"}
               </TableCell>
               {/* Ajustando a largura da coluna Equipamentos */}
