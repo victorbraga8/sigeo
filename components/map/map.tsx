@@ -84,7 +84,7 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
 
       geojsonLayerRef.current.definitionExpression = expression;
 
-      if (viewRef.current && !searchTerm) {
+      if (viewRef.current && viewRef.current.popup) {
         viewRef.current.popup.clear();
         viewRef.current.graphics.removeAll();
       }
