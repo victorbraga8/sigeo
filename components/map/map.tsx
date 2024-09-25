@@ -88,9 +88,6 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
         viewRef.current.popup.clear();
         viewRef.current.graphics.removeAll();
       }
-
-      console.log("Search term:", searchTerm);
-      console.log("Expression:", expression);
     }
   }, [searchTerm]);
 
