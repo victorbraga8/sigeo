@@ -160,10 +160,11 @@ export function TableData() {
 
     return info.filter(
       (item: any) =>
-        item.properties.tx_nome?.toLowerCase().includes(searchTerm) ||
-        item.properties.tx_status?.toLowerCase().includes(searchTerm) ||
-        item.properties.tx_bairro?.toLowerCase().includes(searchTerm) ||
-        item.properties.tx_equipamentos?.toLowerCase().includes(searchTerm)
+        item.properties.tx_bairro?.toLowerCase().includes(searchTerm)
+      // ||
+      //   item.properties.tx_nome?.toLowerCase().includes(searchTerm) ||
+      //   item.properties.tx_status?.toLowerCase().includes(searchTerm) ||
+      //   item.properties.tx_equipamentos?.toLowerCase().includes(searchTerm)
     );
   }, [info, searchTerm]);
 
