@@ -1,0 +1,242 @@
+{
+  "id": "99a74b30-594c-476b-af78-2b31edc90ade",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.places": {
+      "name": "places",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "objectid": {
+          "name": "objectid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "globalid": {
+          "name": "globalid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tx_nome": {
+          "name": "tx_nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tx_status": {
+          "name": "tx_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tx_reg_adm": {
+          "name": "tx_reg_adm",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_bairro": {
+          "name": "tx_bairro",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_mesapingpong": {
+          "name": "tx_mesapingpong",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_parcao": {
+          "name": "tx_parcao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_camposociety": {
+          "name": "tx_camposociety",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_qdpoliesport": {
+          "name": "tx_qdpoliesport",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_qdvolei": {
+          "name": "tx_qdvolei",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_pistaskate": {
+          "name": "tx_pistaskate",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_churrasqueira": {
+          "name": "tx_churrasqueira",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_playg_madplastica": {
+          "name": "tx_playg_madplastica",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_banc_madei": {
+          "name": "tx_banc_madei",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_banc_concr": {
+          "name": "tx_banc_concr",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_playg_madeira": {
+          "name": "tx_playg_madeira",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_balanco": {
+          "name": "tx_balanco",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_balan_aces": {
+          "name": "tx_balan_aces",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_escorregad": {
+          "name": "tx_escorregad",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_gangorra": {
+          "name": "tx_gangorra",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_gira_gira": {
+          "name": "tx_gira_gira",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_trepa_trepa": {
+          "name": "tx_trepa_trepa",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_busto": {
+          "name": "tx_busto",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_coreto": {
+          "name": "tx_coreto",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_lixeira": {
+          "name": "tx_lixeira",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_mesa_concreto": {
+          "name": "tx_mesa_concreto",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_pergula": {
+          "name": "tx_pergula",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_apar_ginas_mad": {
+          "name": "tx_apar_ginas_mad",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_aca_terc_idade": {
+          "name": "tx_aca_terc_idade",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_apa_gina_inox": {
+          "name": "tx_apa_gina_inox",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_equipamentos": {
+          "name": "tx_equipamentos",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tx_paraciclos": {
+          "name": "tx_paraciclos",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "latitude": {
+          "name": "latitude",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "longitude": {
+          "name": "longitude",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

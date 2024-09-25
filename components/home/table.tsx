@@ -23,6 +23,9 @@ import { Trash2, UploadCloud } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Loading from "../loading/loading";
 import { useSearch } from "@/context/SearchContext";
+import { db } from "@/server";
+import { places } from "@/server/schema";
+import { eq } from "drizzle-orm";
 
 export function TableData() {
   const { searchTerm, updateSearchTerm } = useSearch();
@@ -44,8 +47,62 @@ export function TableData() {
     fetchData();
   }, []);
 
-  const handleSendToCloud = useCallback((item: any) => {
+  const handleSendToCloud = useCallback(async (item: any) => {
     console.log("Enviando para a nuvem:", item);
+
+    try {
+      const existingRecord = await db
+        .select()
+        .from(places)
+        .where(eq(places.tx_nome, item.properties.tx_nome));
+
+      if (existingRecord.length > 0) {
+        console.log("Registro já existe:", existingRecord[0]);
+        return;
+      }
+
+      await db.insert(places).values({
+        objectid: item.properties.objectid,
+        globalid: item.properties.globalid,
+        tx_nome: item.properties.tx_nome,
+        tx_status: item.properties.tx_status,
+        tx_reg_adm: item.properties.tx_reg_adm,
+        tx_bairro: item.properties.tx_bairro,
+        tx_mesapingpong: item.properties.tx_mesapingpong,
+        tx_parcao: item.properties.tx_parcao,
+        tx_camposociety: item.properties.tx_camposociety,
+        tx_qdpoliesport: item.properties.tx_qdpoliesport,
+        tx_qdvolei: item.properties.tx_qdvolei,
+        tx_pistaskate: item.properties.tx_pistaskate,
+        tx_churrasqueira: item.properties.tx_churrasqueira,
+        tx_playg_madplastica: item.properties.tx_playg_madplastica,
+        tx_banc_madei: item.properties.tx_banc_madei,
+        tx_banc_concr: item.properties.tx_banc_concr,
+        tx_playg_madeira: item.properties.tx_playg_madeira,
+        tx_balanco: item.properties.tx_balanco,
+        tx_balan_aces: item.properties.tx_balan_aces,
+        tx_escorregad: item.properties.tx_escorregad,
+        tx_gangorra: item.properties.tx_gangorra,
+        tx_gira_gira: item.properties.tx_gira_gira,
+        tx_trepa_trepa: item.properties.tx_trepa_trepa,
+        tx_busto: item.properties.tx_busto,
+        tx_coreto: item.properties.tx_coreto,
+        tx_lixeira: item.properties.tx_lixeira,
+        tx_mesa_concreto: item.properties.tx_mesa_concreto,
+        tx_pergula: item.properties.tx_pergula,
+        tx_apar_ginas_mad: item.properties.tx_apar_ginas_mad,
+        tx_aca_terc_idade: item.properties.tx_aca_terc_idade,
+        tx_apa_gina_inox: item.properties.tx_apa_gina_inox,
+        tx_equipamentos: item.properties.tx_equipamentos,
+        tx_paraciclos: item.properties.tx_paraciclos,
+        latitude: item.geometry.coordinates[1].toString(),
+        longitude: item.geometry.coordinates[0].toString(),
+      });
+
+      console.log("Registro inserido com sucesso!");
+    } catch (error) {
+      console.error("Erro ao enviar para a nuvem:", error);
+    }
   }, []);
 
   const handleSearch = useCallback(

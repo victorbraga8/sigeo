@@ -1,8 +1,13 @@
 "use client";
 import BodyTitle from "@/components/home/body-title";
 import { TableData } from "@/components/home/table";
-import MapComponent from "@/components/map/map";
+
 import { SearchProvider } from "@/context/SearchContext";
+import dynamic from "next/dynamic";
+
+const MapComponent = dynamic(() => import("@/components/map/map"), {
+  ssr: false,
+});
 
 export default function Home() {
   const geojsonUrl = "/data/data.geojson";
