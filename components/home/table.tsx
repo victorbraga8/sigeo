@@ -26,6 +26,7 @@ import { useSearch } from "@/context/SearchContext";
 import { db } from "@/server";
 import { places } from "@/server/schema";
 import { eq } from "drizzle-orm";
+import { toast } from "react-toastify";
 
 export function TableData() {
   const { searchTerm, updateSearchTerm } = useSearch();
@@ -48,7 +49,16 @@ export function TableData() {
   }, []);
 
   const handleSendToCloud = useCallback(async (item: any) => {
-    console.log("Enviando para a nuvem:", item);
+    toast.info("Enviando para Nuvem", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
 
     try {
       const existingRecord = await db
@@ -57,7 +67,17 @@ export function TableData() {
         .where(eq(places.tx_nome, item.properties.tx_nome));
 
       if (existingRecord.length > 0) {
-        console.log("Registro já existe:", existingRecord[0]);
+        toast.warn("Registro já existe na base", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+
         return;
       }
 
@@ -99,9 +119,27 @@ export function TableData() {
         longitude: item.geometry.coordinates[0].toString(),
       });
 
-      console.log("Registro inserido com sucesso!");
+      toast.success("Registro inserido com sucesso!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } catch (error) {
-      console.error("Erro ao enviar para a nuvem:", error);
+      toast.error(`Erro ao enviar para a nuvem: ${error}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   }, []);
 
