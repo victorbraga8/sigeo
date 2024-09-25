@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 "use client";
 import {
   Table,
@@ -31,7 +32,7 @@ import { toast } from "react-toastify";
 export function TableData() {
   const { searchTerm, updateSearchTerm } = useSearch();
   const [info, setInfo] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<any>(true);
 
   useEffect(() => {
     const fetchData = async () => {

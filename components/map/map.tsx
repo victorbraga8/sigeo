@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
 import { useEffect, useRef, useCallback, useState } from "react";
 import MapView from "@arcgis/core/views/MapView";
@@ -15,7 +16,7 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
   const viewRef = useRef<MapView | null>(null);
   const geojsonLayerRef = useRef<GeoJSONLayer | null>(null);
   const { searchTerm } = useSearch();
-  const [webmap, setWebmap] = useState<WebMap | null>(null);
+  // const [webmap, setWebmap] = useState<WebMap | null>(null);
 
   const initializeMap = useCallback(() => {
     if (mapDiv.current && !viewRef.current) {
@@ -25,7 +26,7 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
 
       fetch(geojsonUrl)
         .then((response) => response.json())
-        .then((geojsonData) => {
+        .then(() => {
           const geojsonLayer = new GeoJSONLayer({
             url: geojsonUrl,
 
@@ -60,7 +61,7 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
           });
 
           viewRef.current = view;
-          setWebmap(webmapInstance);
+          // setWebmap(webmapInstance);
         });
     }
   }, [geojsonUrl]);
