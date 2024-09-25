@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 "use client";
-import { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import MapView from "@arcgis/core/views/MapView";
 import WebMap from "@arcgis/core/WebMap";
 import GeoJSONLayer from "@arcgis/core/layers/GeoJSONLayer";
@@ -16,7 +16,6 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
   const viewRef = useRef<MapView | null>(null);
   const geojsonLayerRef = useRef<GeoJSONLayer | null>(null);
   const { searchTerm } = useSearch();
-  // const [webmap, setWebmap] = useState<WebMap | null>(null);
 
   const initializeMap = useCallback(() => {
     if (mapDiv.current && !viewRef.current) {
@@ -29,7 +28,6 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
         .then(() => {
           const geojsonLayer = new GeoJSONLayer({
             url: geojsonUrl,
-
             popupTemplate: {
               title: "{tx_nome}",
               content: `
@@ -53,7 +51,6 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
             map: webmapInstance,
             center: [-43.1, -22.9],
             zoom: 12,
-
             navigation: {
               mouseWheelZoomEnabled: false,
               browserTouchPanEnabled: true,
@@ -61,7 +58,6 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
           });
 
           viewRef.current = view;
-          // setWebmap(webmapInstance);
         });
     }
   }, [geojsonUrl]);
@@ -85,7 +81,9 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
       geojsonLayerRef.current.definitionExpression = expression;
 
       if (viewRef.current && viewRef.current.popup) {
-        viewRef.current.popup.clear();
+        if (viewRef.current.popup.visible) {
+          viewRef.current.popup.close();
+        }
         viewRef.current.graphics.removeAll();
       }
     }
