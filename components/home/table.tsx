@@ -38,7 +38,7 @@ export function TableData() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(process.env.URL_API!);
+        const response = await axios.get(process.env.URL_API_BASE!);
         setInfo(response.data);
       } catch (error) {
         console.error("Erro ao buscar os dados:", error);
