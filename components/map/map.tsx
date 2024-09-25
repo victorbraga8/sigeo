@@ -78,16 +78,21 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
   // Atualizar a camada com base na pesquisa
   useEffect(() => {
     if (geojsonLayerRef.current) {
-      // Verifica se o termo de busca está corretamente formatado
       const expression = searchTerm
         ? `tx_bairro LIKE '%${helpers.toTitleCase(searchTerm)}%'`
         : "1=1";
 
-      console.log("Search term:", searchTerm);
-      console.log("Expression:", expression);
-
       // Aplica a expressão ao layer
       geojsonLayerRef.current.definitionExpression = expression;
+
+      // Limpa a seleção do item quando a pesquisa for limpa
+      if (viewRef.current && !searchTerm) {
+        viewRef.current.popup.clear(); // Fecha qualquer popup aberto
+        viewRef.current.graphics.removeAll(); // Remove qualquer gráfico selecionado
+      }
+
+      console.log("Search term:", searchTerm);
+      console.log("Expression:", expression);
     }
   }, [searchTerm]);
 
