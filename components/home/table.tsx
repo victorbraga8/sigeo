@@ -22,20 +22,22 @@ import { Button } from "../ui/button";
 import { Trash2, UploadCloud } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Loading from "../loading/loading";
+import { useSearch } from "@/context/SearchContext";
 
 export function TableData() {
-  const [info, setInfo] = useState<any[]>([]);
+  const { searchTerm, updateSearchTerm } = useSearch(); // Obtém o termo de pesquisa e a função de atualização do contexto
+  const [info, setInfo] = useState<any[]>([]); // Tipos genéricos, ajuste se souber o tipo exato
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
 
+  // Função para buscar os dados
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:3003/features");
+        const response = await axios.get("http://localhost:3003/features"); // Substitua pela sua URL correta
         setInfo(response.data);
       } catch (error) {
-        console.log(error);
+        console.error("Erro ao buscar os dados:", error);
       } finally {
         setLoading(false);
       }
@@ -47,16 +49,22 @@ export function TableData() {
     console.log("Enviando para a nuvem:", item);
   }, []);
 
-  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value.toLowerCase());
-  }, []);
+  // Função para lidar com a mudança no campo de pesquisa
+  const handleSearch = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      updateSearchTerm(e.target.value.toLowerCase()); // Atualiza o termo de pesquisa no contexto
+    },
+    [updateSearchTerm]
+  );
 
+  // Função para limpar a pesquisa
   const handleClearSearch = useCallback(() => {
-    setSearchTerm("");
-  }, []);
+    updateSearchTerm(""); // Limpa o termo de pesquisa no contexto
+  }, [updateSearchTerm]);
 
+  // Filtrar os resultados com base no termo de pesquisa
   const filteredResults = useMemo(() => {
-    if (!searchTerm) return info;
+    if (!searchTerm) return info; // Se não houver pesquisa, retorna todos os dados
 
     return info.filter(
       (item: any) =>
