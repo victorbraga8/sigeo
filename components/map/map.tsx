@@ -12,9 +12,9 @@ interface MapComponentProps {
 
 export default function MapComponent({ geojsonUrl }: MapComponentProps) {
   const mapDiv = useRef<HTMLDivElement | null>(null);
-  const viewRef = useRef<MapView | null>(null); // Ref para armazenar a instância da view
+  const viewRef = useRef<MapView | null>(null);
   const geojsonLayerRef = useRef<GeoJSONLayer | null>(null);
-  const { searchTerm } = useSearch(); // Pegando o termo de busca do contexto
+  const { searchTerm } = useSearch();
   const [webmap, setWebmap] = useState<WebMap | null>(null);
 
   const initializeMap = useCallback(() => {
@@ -27,10 +27,10 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
         .then((response) => response.json())
         .then((geojsonData) => {
           const geojsonLayer = new GeoJSONLayer({
-            url: geojsonUrl, // Carrega o GeoJSON diretamente
+            url: geojsonUrl,
 
             popupTemplate: {
-              title: "{tx_nome}", // Nome do item
+              title: "{tx_nome}",
               content: `
                 <p><strong>Status:</strong> {tx_status}</p>
                 <p><strong>Bairro:</strong> {tx_bairro}</p>
@@ -75,20 +75,17 @@ export default function MapComponent({ geojsonUrl }: MapComponentProps) {
     };
   }, [initializeMap]);
 
-  // Atualizar a camada com base na pesquisa
   useEffect(() => {
     if (geojsonLayerRef.current) {
       const expression = searchTerm
         ? `tx_bairro LIKE '%${helpers.toTitleCase(searchTerm)}%'`
         : "1=1";
 
-      // Aplica a expressão ao layer
       geojsonLayerRef.current.definitionExpression = expression;
 
-      // Limpa a seleção do item quando a pesquisa for limpa
       if (viewRef.current && !searchTerm) {
-        viewRef.current.popup.clear(); // Fecha qualquer popup aberto
-        viewRef.current.graphics.removeAll(); // Remove qualquer gráfico selecionado
+        viewRef.current.popup.clear();
+        viewRef.current.graphics.removeAll();
       }
 
       console.log("Search term:", searchTerm);

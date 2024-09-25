@@ -25,16 +25,15 @@ import Loading from "../loading/loading";
 import { useSearch } from "@/context/SearchContext";
 
 export function TableData() {
-  const { searchTerm, updateSearchTerm } = useSearch(); // Obtém o termo de pesquisa e a função de atualização do contexto
-  const [info, setInfo] = useState<any[]>([]); // Tipos genéricos, ajuste se souber o tipo exato
+  const { searchTerm, updateSearchTerm } = useSearch();
+  const [info, setInfo] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Função para buscar os dados
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:3003/features"); // Substitua pela sua URL correta
+        const response = await axios.get("http://localhost:3003/features");
         setInfo(response.data);
       } catch (error) {
         console.error("Erro ao buscar os dados:", error);
@@ -49,22 +48,19 @@ export function TableData() {
     console.log("Enviando para a nuvem:", item);
   }, []);
 
-  // Função para lidar com a mudança no campo de pesquisa
   const handleSearch = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      updateSearchTerm(e.target.value.toLowerCase()); // Atualiza o termo de pesquisa no contexto
+      updateSearchTerm(e.target.value.toLowerCase());
     },
     [updateSearchTerm]
   );
 
-  // Função para limpar a pesquisa
   const handleClearSearch = useCallback(() => {
-    updateSearchTerm(""); // Limpa o termo de pesquisa no contexto
+    updateSearchTerm("");
   }, [updateSearchTerm]);
 
-  // Filtrar os resultados com base no termo de pesquisa
   const filteredResults = useMemo(() => {
-    if (!searchTerm) return info; // Se não houver pesquisa, retorna todos os dados
+    if (!searchTerm) return info;
 
     return info.filter(
       (item: any) =>
