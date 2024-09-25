@@ -38,7 +38,7 @@ export function TableData() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:3003/features");
+        const response = await axios.get(process.env.URL_API!);
         setInfo(response.data);
       } catch (error) {
         console.error("Erro ao buscar os dados:", error);
@@ -220,7 +220,10 @@ export function TableData() {
             <TableBody className="max-h-[40vh] w-screen overflow-y-scroll block">
               {filteredResults.length > 0 ? (
                 filteredResults.map((item: any) => (
-                  <TableRow key={item.id} className="hover:bg-gray-100">
+                  <TableRow
+                    key={item.properties.globalid}
+                    className="hover:bg-gray-100"
+                  >
                     <TableCell className="p-2 font-medium border-b text-left w-[16%]">
                       {item.properties.tx_nome || "N/A"}
                     </TableCell>
